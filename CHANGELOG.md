@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Documentation standards
 - CI/CD pipeline skeleton
 - Community guidelines
+- **AGENTS.md** — MASTER MEMORY SEED — VAHID (long-term user memory, identity, preferences, project map, core principles)
+- **README.md** — Added Project Ecosystem section mapping NanDark + BlackBird + NanGuard + BackYard II + RASA + Trading + Proxy/VPN + Automotive
 
 ---
 

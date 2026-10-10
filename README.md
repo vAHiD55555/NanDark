@@ -64,27 +64,17 @@ We're building the project skeleton - repository structure, CI/CD pipeline, and 
 
 ```
 NanDark/
-├── /apps                 # Application projects
-│   └── /android         # Android app
-├── /backend             # Backend services
-├── /packages            # Shared packages/libraries
-├── /docs                # Documentation
-│   ├── /adr            # Architecture Decision Records
-│   ├── /architecture   # Architecture documentation
-│   ├── /product        # Product specifications
-│   ├── /design         # Design guidelines
-│   └── /api            # API documentation
-├── /scripts             # Build and utility scripts
-├── /assets              # Static assets
-├── /tests               # Test configuration
-├── /tools               # Development tools
 ├── README.md            # This file
+├── AGENTS.md            # MASTER MEMORY SEED — VAHID (long-term user memory)
 ├── LICENSE              # MIT License
 ├── .gitignore          # Git ignore rules
 ├── CONTRIBUTING.md      # Contribution guidelines
 ├── CODE_OF_CONDUCT.md   # Community code of conduct
 ├── CHANGELOG.md         # Version history
-└── PROJECT_STATUS.md    # Current project status
+├── PROJECT_STATUS.md    # Current project status
+└── .github/
+    └── ISSUE_TEMPLATE/
+        └── feature_request.yml
 ```
 
 ---
@@ -112,3 +102,35 @@ This project is licensed under the MIT License - see [LICENSE](./LICENSE) file f
 ---
 
 **Made with ❤️ for financial privacy**
+
+---
+
+## 🧠 Project Ecosystem
+
+NanDark is part of a broader ecosystem of interconnected projects. Each project is independent but shares common principles:
+
+| Project | Role | Status |
+|---|---|---|
+| **NanDark** | Core AI/Agent/Memory/Automation ecosystem | Phase 0: Foundation |
+| **BlackBird** | Financial arm — income generation for NanDark | Planning (Phase 0) |
+| **NanGuard** | Network security for Android | Concept |
+| **BackYard II** | Salt + Juice production (physical product) | Research |
+| **RASA** | Restaurant dishwashing detergent | Research |
+| **Trading** | AI/Agent-based trading systems | Research |
+| **Proxy/VPN** | Network infrastructure | Research |
+| **Automotive** | Peugeot 206 modifications | Research |
+
+### Core Principles (from MASTER MEMORY SEED — VAHID)
+- **Quality over speed** — correctness before velocity
+- **MVP testable before perfect** — ship the smallest verifiable thing
+- **Sellable product before attractive idea** — revenue-ready beats feature-rich
+- **No real trades until Paper Trading + validation proven**
+- **Risk control has independent veto power**
+- **Nothing fabricated** — no synthetic market data, no fake results
+- **Nothing enters the core unless it can be tested**
+
+### Key Constraints
+- Android-first (Termux, no PC dependency)
+- Free or near-free (no foreign credit card, no paid VPS)
+- Offline-first behavior when data is unavailable
+- Safe default: `WAIT` or `NO_TRADE` on any uncertainty
