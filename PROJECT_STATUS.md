@@ -1,6 +1,6 @@
 # 🌙 NanDark - Project Status
 
-**Last Updated**: 2024
+**Last Updated**: 2026-10-10
 
 ---
 
@@ -15,6 +15,8 @@
 - ✅ License (MIT)
 - ✅ .gitignore
 - ✅ Changelog
+- ✅ **AGENTS.md** — MASTER MEMORY SEED — VAHID (long-term user memory: identity, preferences, project map, core principles, constraints)
+- ✅ **README.md** — Project Ecosystem section (NanDark + BlackBird + NanGuard + BackYard II + RASA + Trading + Proxy/VPN + Automotive)
 
 ### In Progress
 - 🔄 CI/CD Pipeline (lint/build checks)

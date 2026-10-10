@@ -5,9 +5,8 @@ labels: ["feature"]
 
 body:
   - type: markdown
-    attributes:
-      value: |
-        Thank you for suggesting a feature! Please provide clear context.
+    attributes: |
+      Thank you for suggesting a feature! Please provide clear context.
 
   - type: textarea
     id: problem
@@ -22,7 +21,7 @@ body:
     id: solution
     attributes:
       label: Proposed Solution
-      description: How would you like this feature to work?
+      description: How would you like this feature to work
       placeholder: Describe the feature...
     validations:
       required: true
