@@ -1,136 +1,75 @@
-# 🌙 NanDark
+# BlackBird Core v0.4 — Study Mode
 
-**Android-First AI-Powered Financial Intelligence Platform**
+## Overview
+- **4 assets**: BTC, Gold/USD, Gold/EUR, Silver/USD
+- **2 observers**: Conservative + Aggressive (different assumptions)
+- **Real data only**: CoinGecko (crypto), MetalPriceAPI (commodities)
+- **No synthetic data**: If API fails → quality=FAIL → NO trade/prediction
+- **Purpose**: 6-month study to discover which patterns are predictive
 
----
-
-## 🎯 Vision
-
-NanDark is a privacy-first, open-source financial intelligence platform designed specifically for Android. We believe financial empowerment should be:
-- **Private**: Your data stays on your device
-- **Intelligent**: AI that explains itself
-- **Accessible**: Simple, ADHD-friendly interface
-- **Free**: Forever free, forever open
-
----
-
-## 🚀 Goals
-
-- Build a modular, scalable foundation for financial AI
-- Prioritize user privacy and offline-first architecture
-- Create explainable AI recommendations
-- Support ADHD-friendly UX patterns
-- Enable learning through transparent financial insights
-
----
-
-## 📊 Current Phase
-
-**Phase 0: Foundation**
-
-We're building the project skeleton - repository structure, CI/CD pipeline, and documentation standards. No features or business logic yet.
-
----
-
-## 🗺️ Roadmap
-
-### Phase 0: Foundation ✓ (In Progress)
-- [ ] Repository structure
-- [ ] CI/CD pipeline (lint/build)
-- [ ] Documentation standards
-- [ ] Community guidelines
-
-### Phase 1: Architecture (Coming Next)
-- [ ] Android app structure
-- [ ] Backend service design
-- [ ] Database schema (offline-first)
-- [ ] AI/ML pipeline skeleton
-
-### Phase 2: Core Features (TBD)
-- [ ] User onboarding
-- [ ] Data ingestion
-- [ ] Basic analytics
-- [ ] AI recommendations
-
-### Phase 3: Intelligence (TBD)
-- [ ] Advanced AI models
-- [ ] Explainability layer
-- [ ] Learning system
-- [ ] Community features
-
----
-
-## 📁 Project Structure
-
+## Architecture
 ```
-NanDark/
-├── README.md            # This file
-├── AGENTS.md            # MASTER MEMORY SEED — VAHID (long-term user memory)
-├── LICENSE              # MIT License
-├── .gitignore          # Git ignore rules
-├── CONTRIBUTING.md      # Contribution guidelines
-├── CODE_OF_CONDUCT.md   # Community code of conduct
-├── CHANGELOG.md         # Version history
-├── PROJECT_STATUS.md    # Current project status
-└── .github/
-    └── ISSUE_TEMPLATE/
-        └── feature_request.yml
+main.py              # Entry point, loop control
+core/
+  config.py          # Asset definitions, thresholds
+  data.py            # Live price fetchers (real APIs only)
+  analysis.py        # Technical indicators (RSI, SMA, volatility)
+  risk.py            # Independent veto power
+  paper_trader.py    # Virtual positions & PnL tracking
+  logger.py          # JSONL log writer
+  study.py           # Runs both observers, compares results
+  observers/
+    conservative.py  # High risk aversion, multiple confirmations
+    aggressive.py    # Momentum-driven, breakout focused
 ```
 
----
+## Run Commands
 
-## 🤝 Getting Involved
+### Single cycle (test):
+```bash
+python3 main.py --once --mode both
+```
 
-We welcome contributions! Please read:
-- [CONTRIBUTING.md](./CONTRIBUTING.md) - How to contribute
-- [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) - Community standards
+### 24-hour continuous study:
+```bash
+python3 main.py --hours 24 --interval 900 --mode study
+```
+Interval: 900s = 15min (respects CoinGecko rate limits)
 
----
+### 24-hour paper trading:
+```bash
+python3 main.py --hours 24 --interval 900 --mode paper
+```
 
-## 📜 License
+### Both study + paper:
+```bash
+python3 main.py --hours 24 --interval 900 --mode both
+```
 
-This project is licensed under the MIT License - see [LICENSE](./LICENSE) file for details.
+## Data Sources (Free, No Key)
+- **Crypto**: CoinGecko API (bitcoin)
+- **Commodities**: MetalPriceAPI (gold, silver)
+- Caching: 60s for prices, 300s for history
+- Rate limit handling: 429 responses cached to avoid hammering
 
----
+## Safety Rules
+1. `quality=FAIL` → `NO_TRADE` (no data = no action)
+2. `quality=WARN` → `WAIT` (synthetic/fixture data is forbidden)
+3. `quality=PASS` → only then can a trade be considered
+4. Confidence < 0.55 → `NO_TRADE`
+5. Max 2 open positions
+6. Max 20% drawdown
 
-## 📞 Community
+## Real Trade Path
+Paper trading → 6-month study → verify patterns → explicit user approval → real trade.
+Real trades NEVER happen automatically.
 
-- **Issues**: For bugs, features, and discussions
-- **Discussions**: For architecture and design questions
-- **Pull Requests**: For code contributions
+## Outputs
+- `logs/YYYY-MM-DD.jsonl` — every cycle, decision, outcome
+- `data/{ASSET}.jsonl` — price snapshots
+- Console: compact cycle summary
 
----
-
-**Made with ❤️ for financial privacy**
-
----
-
-## 🧠 Project Ecosystem
-
-NanDark is part of a broader ecosystem of interconnected projects. Each project is independent but shares common principles:
-
-| Project | Role | Status |
-|---|---|---|
-| **NanDark** | Core AI/Agent/Memory/Automation ecosystem | Phase 0: Foundation |
-| **BlackBird** | Financial arm — income generation for NanDark | Planning (Phase 0) |
-| **NanGuard** | Network security for Android | Concept |
-| **BackYard II** | Salt + Juice production (physical product) | Research |
-| **RASA** | Restaurant dishwashing detergent | Research |
-| **Trading** | AI/Agent-based trading systems | Research |
-| **Proxy/VPN** | Network infrastructure | Research |
-| **Automotive** | Peugeot 206 modifications | Research |
-
-### Core Principles (from MASTER MEMORY SEED — VAHID)
-- **Quality over speed** — correctness before velocity
-- **MVP testable before perfect** — ship the smallest verifiable thing
-- **Sellable product before attractive idea** — revenue-ready beats feature-rich
-- **No real trades until Paper Trading + validation proven**
-- **Risk control has independent veto power**
-- **Nothing fabricated** — no synthetic market data, no fake results
-- **Nothing enters the core unless it can be tested**
-
-### Key Constraints
-- Android-first (Termux, no PC dependency)
-- Free or near-free (no foreign credit card, no paid VPS)
-- Offline-first behavior when data is unavailable
-- Safe default: `WAIT` or `NO_TRADE` on any uncertainty
+## Requirements
+- Python 3.7+
+- No external dependencies (stdlib only)
+- Internet connection for live APIs
