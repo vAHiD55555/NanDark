@@ -7,20 +7,6 @@ secrets/
 # Python
 __pycache__/
 *.py[cod]
-*.egg-info/
-.venv/
-venv/
-
-# Logs & data
-logs/
-data/*.jsonl
-data/live/
-
-# OS
-.DS_Store
-# Python
-__pycache__/
-*.py[cod]
 *$py.class
 *.so
 .Python
@@ -43,11 +29,6 @@ wheels/
 .installed.cfg
 *.egg
 
-# Environment
-.env
-.env.local
-*.env
-
 # IDE
 .vscode/
 .idea/
@@ -62,6 +43,10 @@ Thumbs.db
 # Logs
 *.log
 logs/
+
+# Data
+data/*.jsonl
+data/live/
 
 # Database
 *.db

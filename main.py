@@ -15,6 +15,38 @@ from core.study import run_study_cycle
 from core.analysis import analyze
 
 
+def build_signal(asset: str) -> dict:
+    """Build a signal dict for a single asset. Used by server.py."""
+    pd = get_price(asset)
+    history = get_history(asset)
+    analysis = analyze(asset, history, pd["price"]) if (history and pd["quality"] == "PASS" and pd["price"]) else None
+    return {
+        "asset": asset,
+        "timeframe": "1h",
+        "timestamp": pd["timestamp"],
+        "direction": analysis["direction"] if analysis else "HOLD",
+        "confidence": analysis["confidence"] if analysis else 0.0,
+        "agreement": 0,
+        "conflict": "no council configured in v0.4",
+        "data_quality": pd["quality"],
+        "source": pd["source"],
+        "reason_codes": analysis["reason_codes"] if analysis else [],
+        "version": VERSION,
+        "price": pd["price"],
+    }
+
+
+def risk_guardian(signal: dict) -> tuple:
+    """Return (decision, reason). Hard veto: cannot be overridden."""
+    if signal["data_quality"] == "FAIL":
+        return "NO_TRADE", "data_quality=FAIL — insufficient data"
+    if signal["data_quality"] == "WARN":
+        return "WAIT", "data_quality=WARN — synthetic data is not allowed"
+    if signal["confidence"] < 0.55:
+        return "NO_TRADE", f"confidence={signal['confidence']} below 0.55 threshold"
+    return "PAPER_LONG", "risk check passed"
+
+
 def run_paper_cycle(trader):
     prices = {}
     decisions = []
