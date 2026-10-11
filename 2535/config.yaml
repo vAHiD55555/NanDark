@@ -1,0 +1,63 @@
+# Multi-Agent System Configuration
+
+# Agent Settings
+agent:
+  name: "NanDark"
+  version: "0.1.0"
+  mode: "study"  # study | paper | live
+  log_level: "INFO"
+
+# Provider Settings
+providers:
+  deepseek:
+    model: "DeepSeek V4.1 Flash"
+    use_case: "fast_analysis"
+    priority: 1
+    
+  claude:
+    model: "Claude Opus 5.5"
+    use_case: "deep_reasoning"
+    priority: 2
+    
+  gpt:
+    model: "GPT-6.1 Sol"
+    use_case: "content_generation"
+    priority: 3
+    
+  nemotron:
+    model: "NVIDIA Nemotron 3 Ultra"
+    use_case: "complex_problems"
+    priority: 4
+
+# Memory Settings
+memory:
+  base_path: "/workspace/app/2535"
+  auto_organize: true
+  review_interval: "daily"
+  max_context_size: 10000
+
+# Safety Settings
+safety:
+  real_trades_require_approval: true
+  max_daily_trades: 5
+  max_position_size: 0.5  # 50% of balance
+  stop_loss: 0.10  # 10%
+  
+# Study Settings
+study:
+  assets: ["BTC", "XAU_USD", "XAU_EUR", "XAG_USD"]
+  observers: ["conservative", "aggressive"]
+  duration_months: 6
+  interval_minutes: 15
+  
+# Paper Trading
+paper:
+  initial_balance: 10000.0
+  max_open_positions: 2
+  max_drawdown: 0.20
+  
+# Logging
+logging:
+  format: "jsonl"
+  rotation: "daily"
+  path: "/workspace/app/logs"

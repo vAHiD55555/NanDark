@@ -1,3 +1,23 @@
+# Secrets / environment
+.env
+*.key
+*.pem
+secrets/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Logs & data
+logs/
+data/*.jsonl
+data/live/
+
+# OS
+.DS_Store
 # Python
 __pycache__/
 *.py[cod]
